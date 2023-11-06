@@ -1,0 +1,4 @@
+customer<> fn ln l b
+product<> n t p q
+
+pur<> fn ln l pname ptype pprice pquantity
