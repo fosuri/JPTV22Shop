@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.Scanner;
 import entity.Customer;
 
+
 public class CustomerManager {
     private List<Customer> customerList;
     private final Scanner scanner;
+    //private SaveLoadManager saveLoadManager;
+
 
     public CustomerManager() {
         this.customerList = new ArrayList<>();
+        //this.customerList = saveLoadManager.loadCustomers();
         this.scanner = new Scanner(System.in);
     }
 
@@ -116,7 +120,7 @@ public class CustomerManager {
 
         customer.setCustomerBalance(customer.getCustomerBalance()+depositAmount);
         System.out.println("Deposit successful. New balance for " + customer.getCustomerFirstname() + " " +
-        customer.getCustomerLastname() + " (" + customer.getCustomerLogin() + ") is" + customer.getCustomerBalance() + " EUR.");
+        customer.getCustomerLastname() + " (" + customer.getCustomerLogin() + ") is " + customer.getCustomerBalance() + " EUR.");
     }
     
     public List<Customer> getCustomerList(){

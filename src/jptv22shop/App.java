@@ -49,10 +49,10 @@ public class App {
                 	storeManager.purchaseProduct();
                     break;
                 case 6:
-
+                    storeManager.displayPurchasesByLogin();
                     break;
                 case 7:
-                    //
+                    storeManager.displayTotalPurchaseAmount();
                     break;
                 case 8:
                     customerManager.replenishmentOfBalance();

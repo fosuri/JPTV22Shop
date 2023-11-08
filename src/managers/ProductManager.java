@@ -77,12 +77,12 @@ public class ProductManager {
         return productList;
     }
 
-    public Product findProductByName(String productName){
-        for(Product product: productList){
-            if(product.getProductName().equals(productName)){
-                return product;
-            }
-        }
-        return null;
-    }
+    // public Product findProductByName(String productName){
+    //     for(Product product: productList){
+    //         if(product.getProductName().equals(productName)){
+    //             return product;
+    //         }
+    //     }
+    //     return null;
+    // }
 }
