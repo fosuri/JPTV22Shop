@@ -2,3 +2,5 @@ customer<> fn ln l b
 product<> n t p q
 
 pur<> fn ln l pname ptype pprice pquantity
+
+Product #1 - Milk (drink), 2.99 EUR, Qty: 8.

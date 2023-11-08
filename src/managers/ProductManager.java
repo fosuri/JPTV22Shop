@@ -63,17 +63,26 @@ public class ProductManager {
         }else{
             int productNumber = 1;
             for(Product product : productList){
-                System.out.print("Product #" + productNumber+", ");
-                System.out.print("Name: " +product.getProductName() +", ");
-                System.out.print("Type: " +product.getProductType() +", ");
-                System.out.print("Price: " +product.getProductPrice() +" EUR, ");
-                System.out.print("Quantity: " +product.getProductQuantity() +".");
+                System.out.print("Product #" + productNumber+" - ");
+                System.out.print(product.getProductName() +" ");
+                System.out.print("("+product.getProductType() +"), ");
+                System.out.print(product.getProductPrice() +" EUR, ");
+                System.out.print("Qty: "+product.getProductQuantity() +".");
                 System.out.println();
                 productNumber++;                    
             }
         }
     }
-    public List<Product> geProductList(){
+    public List<Product> getProductList(){
         return productList;
+    }
+
+    public Product findProductByName(String productName){
+        for(Product product: productList){
+            if(product.getProductName().equals(productName)){
+                return product;
+            }
+        }
+        return null;
     }
 }

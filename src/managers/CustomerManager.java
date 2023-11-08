@@ -70,11 +70,11 @@ public class CustomerManager {
         } else{
             int customerNumber = 1;
             for (Customer customer : customerList){
-                System.out.print("Customer #" + customerNumber+", ");
-                System.out.print("First Name: " + customer.getCustomerFirstname()+", ");
-                System.out.print("Last Name: " + customer.getCustomerLastname()+", ");
-                System.out.print("Login: " + customer.getCustomerLogin()+", ");
-                System.out.print("Balance: " + customer.getCustomerBalance()+" EUR.");
+                System.out.print("Customer #" + customerNumber+" - ");
+                System.out.print(customer.getCustomerFirstname()+" ");
+                System.out.print(customer.getCustomerLastname()+", ");
+                System.out.print("(" + customer.getCustomerLogin()+"), ");
+                System.out.print(customer.getCustomerBalance()+" EUR.");
                 System.out.println();
                 customerNumber++;                
             }
