@@ -40,11 +40,47 @@ public class ProductManager {
                 System.out.println("Invalid price entry format.");
             }
         }
-        System.out.print("Product quantity: ");
-        int pQuantity = scanner.nextInt(); scanner.nextLine();
-        while(pQuantity<=0){
-            System.out.print("Quantity must be greater than 0. Please enter a valid quantity: ");
-            pQuantity = scanner.nextInt(); scanner.nextLine();
+        // System.out.print("Product quantity: ");
+        // int pQuantity = scanner.nextInt(); scanner.nextLine();
+        // while(pQuantity<=0){
+        //     System.out.print("Quantity must be greater than 0. Please enter a valid quantity: ");
+        //     pQuantity = scanner.nextInt(); scanner.nextLine();
+        // }
+
+        // int pQuantity;
+
+        // while (true) {
+        //     try {
+        //         System.out.print("Product quantity: ");
+        //         pQuantity = scanner.nextInt();
+        //         scanner.nextLine();  
+
+        //         if (pQuantity > 0) {
+        //             break; 
+        //         } else {
+        //             System.out.println("Quantity must be greater than 0. Please enter a valid quantity.");
+        //         }
+        //     } catch (java.util.InputMismatchException e) {
+        //         
+        //         System.out.println("Invalid input. Please enter a valid quantity.");
+        //         scanner.nextLine(); 
+        //     }
+        // }
+
+        int pQuantity;
+        while(true){
+            System.out.print("Product quantity: ");
+            if(scanner.hasNextInt()){
+                pQuantity = scanner.nextInt(); scanner.nextLine();
+                if(pQuantity<0){
+                    System.out.println("Quantity must be greater than 0. Please enter a valid quantity.");
+                } else{
+                    break;
+                }
+            }else{
+                System.out.println("Invalid input. Please enter a valid quantity.");
+                scanner.nextLine(); 
+            }
         }
 
         Product newProduct = new Product(pName, pType, pPrice, pQuantity);

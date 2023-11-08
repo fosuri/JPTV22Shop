@@ -45,7 +45,7 @@ public class StoreManager {
         
         productManager.displayAllProducts();
     
-        System.out.print("Enter the number of the product you want to purchase: ");
+        System.out.println("Enter the number of the product you want to purchase.");
         //int productNumber = scanner.nextInt(); scanner.nextLine();
         int productNumber = InputFromKeyboard.inputNumberFromRange(1, productList.size());
     
@@ -56,18 +56,35 @@ public class StoreManager {
     
         Product selectedProduct = productList.get(productNumber - 1);
     
-        System.out.print("Enter the quantity you want to purchase: ");
+        // System.out.print("Enter the quantity you want to purchase: ");
         //int quantityToPurchase = InputFromKeyboard.inputNumberFromRange(0, selectedProduct.getProductQuantity()); 
 
+        // int quantityToPurchase;
+        // while (true) {
+        //     System.out.print("Enter the quantity to purchase: ");
+        //     quantityToPurchase = scanner.nextInt(); scanner.nextLine(); 
+        
+        //     if (quantityToPurchase <= 0 || quantityToPurchase > selectedProduct.getProductQuantity()) {
+        //         System.out.println("Invalid quantity. Please enter a valid quantity.");
+        //     } else {
+        //         break;
+        //     }
+        // }
         int quantityToPurchase;
         while (true) {
             System.out.print("Enter the quantity to purchase: ");
-            quantityToPurchase = scanner.nextInt(); scanner.nextLine(); 
-        
-            if (quantityToPurchase <= 0 || quantityToPurchase > selectedProduct.getProductQuantity()) {
-                System.out.println("Invalid quantity. Please enter a valid quantity.");
+            
+            if (scanner.hasNextInt()) {
+                quantityToPurchase = scanner.nextInt(); scanner.nextLine(); 
+                
+                if (quantityToPurchase <= 0 || quantityToPurchase > selectedProduct.getProductQuantity()) {
+                    System.out.println("Invalid quantity. Please enter a valid quantity.");
+                } else {
+                    break;
+                }
             } else {
-                break;
+                System.out.println("Invalid input. Please enter a valid integer quantity.");
+                scanner.nextLine(); 
             }
         }
     
@@ -113,7 +130,7 @@ public class StoreManager {
                 System.out.print("("+purchase.getPurchasedLogin()+") ");
                 System.out.print("-> "+purchase.getPurchasedProductName()+" ");
                 System.out.print("("+purchase.getPurchasedProductType()+") ");
-                System.out.print("Qty: "+purchase.getPurchasedProductQuantity()+" ");
+                System.out.print("Qty: "+purchase.getPurchasedProductQuantity()+", ");
                 System.out.print(purchase.getPurchasedProductPrice() + " EUR.");
                 System.out.println();
                 
