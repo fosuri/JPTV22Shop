@@ -12,7 +12,8 @@ public class ProductManager {
     private Scanner scanner;
     
     public ProductManager() {
-        this.productList = new ArrayList<>();
+        //this.productList = new ArrayList<>();
+        this.productList = SaveLoadManager.loadProductList("productList");
         this.scanner = new Scanner(System.in);
     }
     
@@ -124,6 +125,7 @@ public class ProductManager {
         Product newProduct = new Product(pName, pType, pPrice, pQuantity);
         productList.add(newProduct);
         System.out.println("The product was successfully added!");
+        SaveLoadManager.saveProductList(productList, "productList");
     }
 
     public void displayAllProducts(){

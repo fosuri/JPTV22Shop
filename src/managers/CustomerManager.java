@@ -9,12 +9,10 @@ import entity.Customer;
 public class CustomerManager {
     private List<Customer> customerList;
     private final Scanner scanner;
-    //private SaveLoadManager saveLoadManager;
-
 
     public CustomerManager() {
-        this.customerList = new ArrayList<>();
-        //this.customerList = saveLoadManager.loadCustomers();
+        //this.customerList = new ArrayList<>();
+        this.customerList = SaveLoadManager.loadCustomerList("customerList");
         this.scanner = new Scanner(System.in);
     }
 
@@ -48,6 +46,7 @@ public class CustomerManager {
         Customer newCustomer = new Customer(fname, lname, login, balance);
         customerList.add(newCustomer);
         System.out.println("The customer was successfully added!");
+        SaveLoadManager.saveCustomerList(customerList, "customerList");
     }
 
     private boolean isLoginTaken(String login){
@@ -121,6 +120,7 @@ public class CustomerManager {
         customer.setCustomerBalance(Math.round((customer.getCustomerBalance()+depositAmount)*100.0)/100.0);
         System.out.println("Deposit successful. New balance for " + customer.getCustomerFirstname() + " " +
         customer.getCustomerLastname() + " (" + customer.getCustomerLogin() + ") is " + customer.getCustomerBalance() + " EUR.");
+        SaveLoadManager.saveCustomerList(customerList, "customerList");
     }
     
     public List<Customer> getCustomerList(){

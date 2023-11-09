@@ -12,15 +12,16 @@ public class StoreManager {
     private CustomerManager customerManager;
     private ProductManager productManager;
     private List<Purchase> purchaseList;
-    //private List<Customer> customerList;
+    private List<Customer> customerList;
     private List<Product> productList;
     private final Scanner scanner;
 
     public StoreManager(CustomerManager customerManager, ProductManager productManager) {
         this.customerManager = customerManager;
         this.productManager = productManager;
-        this.purchaseList = new ArrayList<>();
-        //this.customerList = customerManager.getCustomerList();
+        //this.purchaseList = new ArrayList<>();
+        this.purchaseList = SaveLoadManager.loadPurchaseList("purchaseList");
+        this.customerList = customerManager.getCustomerList();
         this.productList = productManager.getProductList();
         this.scanner = new Scanner(System.in);
     }
@@ -94,6 +95,7 @@ public class StoreManager {
         customer.setCustomerBalance(Math.round((customer.getCustomerBalance() - roundedTotalPrice)*100.0)/100.0);
     
         System.out.println("Purchase successful. Total cost: " + roundedTotalPrice + " EUR");
+        SaveLoadManager.saveCustomerList(customerList, "customerList");
     
         selectedProduct.setProductQuantity(selectedProduct.getProductQuantity() - quantityToPurchase);
     
@@ -107,8 +109,13 @@ public class StoreManager {
             totalPrice
         );
         purchaseList.add(newPurchase);
+        SaveLoadManager.savePurchaseList(purchaseList, "purchaseList");
     
         //displayAllPurchases();
+    }
+
+    public List<Purchase> getPurchaseList(){
+        return purchaseList;
     }
     
     public void displayPurchasesByLogin(){
