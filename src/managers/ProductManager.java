@@ -1,5 +1,7 @@
 package managers;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,21 +27,57 @@ public class ProductManager {
         
         System.out.print("Product type: ");
         final String pType = scanner.nextLine();        
-        double pPrice;
-        while (true) {
-            System.out.print("Enter the price of the product (should be greater than 0 and have 2 decimal places(#.##)): ");
-            String pPriceString = scanner.next();
+        // double pPrice;
+        // while (true) {
+        //     System.out.print("Enter the price of the product (should be greater than 0 and have 2 decimal places(#.##)): ");
+        //     String pPriceString = scanner.next();
+        //     try {
+        //         pPrice = Double.parseDouble(pPriceString);
+        //         if(pPrice > 0 && Math.abs(pPrice * 100 - (int)(pPrice * 100)) < 1e-9){
+        //             break;
+        //         } else{
+        //             System.out.println("Price must be greater than 0 and have exactly 2 decimal places.");
+        //         }
+        //     } catch (NumberFormatException e) {
+        //         System.out.println("Invalid price entry format.");
+        //     }
+        // }
+
+        // double pPrice;
+
+        // while (true) {
+        //     System.out.print("Enter the price of the product (should be greater than 0 and have 2 decimal places (#.##)): ");
+        //     String pPriceString = scanner.next();
+
+        //     try {
+        //         pPrice = Double.parseDouble(pPriceString);
+        //         BigDecimal price = BigDecimal.valueOf(pPrice).setScale(2, RoundingMode.HALF_UP);
+
+        //         if (price.compareTo(BigDecimal.ZERO) > 0 && price.scale() == 2) {
+        //             break;
+        //         } else {
+        //             System.out.println("Price must be greater than 0 and have exactly 2 decimal places.");
+        //         }
+        //     } catch (NumberFormatException e) {
+        //         System.out.println("Invalid price entry format.");
+        //     }
+        // }
+        System.out.print("Enter the price of the product (should be greater than 0 and have 2 decimal places (#.##)):");
+        double pPrice =-1;
+        while(pPrice<=0){
             try {
-                pPrice = Double.parseDouble(pPriceString);
-                if(pPrice > 0 && Math.abs(pPrice * 100 - (int)(pPrice * 100)) < 1e-9){
-                    break;
-                } else{
-                    System.out.println("Price must be greater than 0 and have exactly 2 decimal places.");
+                pPrice = Double.parseDouble(scanner.nextLine());
+                if(pPrice<=0 || Math.abs(pPrice*100 - Math.round(pPrice*100))>0.001){
+                    System.out.println("Invalid price. Amount should be greater than 0 and have 2 decimal places.");
+                    System.out.print("Enter a valid price: ");
+                    pPrice = -1;
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid price entry format.");
+                System.out.println("Invalid input. Please enter a valid number.");
+                System.out.print("Enter a valid price: ");                
             }
         }
+
         // System.out.print("Product quantity: ");
         // int pQuantity = scanner.nextInt(); scanner.nextLine();
         // while(pQuantity<=0){

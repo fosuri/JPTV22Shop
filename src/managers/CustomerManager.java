@@ -118,7 +118,7 @@ public class CustomerManager {
             }
         }
 
-        customer.setCustomerBalance(customer.getCustomerBalance()+depositAmount);
+        customer.setCustomerBalance(Math.round((customer.getCustomerBalance()+depositAmount)*100.0)/100.0);
         System.out.println("Deposit successful. New balance for " + customer.getCustomerFirstname() + " " +
         customer.getCustomerLastname() + " (" + customer.getCustomerLogin() + ") is " + customer.getCustomerBalance() + " EUR.");
     }
