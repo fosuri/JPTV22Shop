@@ -1,6 +1,6 @@
 package managers;
 
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import entity.Customer;
@@ -78,9 +78,35 @@ public class StoreManager {
             if (scanner.hasNextInt()) {
                 quantityToPurchase = scanner.nextInt(); scanner.nextLine(); 
                 
-                if (quantityToPurchase <= 0 || quantityToPurchase > selectedProduct.getProductQuantity()) {
+                if (quantityToPurchase==0) {
+                    System.out.println("This product out of stock");
+                    break;
+                } else if(quantityToPurchase <= 1 || quantityToPurchase > selectedProduct.getProductQuantity()) {
                     System.out.println("Invalid quantity. Please enter a valid quantity.");
-                } else {
+                } else{
+                    double totalPrice = quantityToPurchase * selectedProduct.getProductPrice();
+                    double roundedTotalPrice = Math.round(totalPrice*100.0)/100.0;
+                    if(roundedTotalPrice<customer.getCustomerBalance()){
+                        //customer.setCustomerBalance(customer.getCustomerBalance() - roundedTotalPrice);
+                        customer.setCustomerBalance(Math.round((customer.getCustomerBalance() - roundedTotalPrice)*100.0)/100.0);
+                        System.out.println("Purchase successful. Total cost: " + roundedTotalPrice + " EUR");
+                        selectedProduct.setProductQuantity(selectedProduct.getProductQuantity() - quantityToPurchase);
+                        Purchase newPurchase = new Purchase(
+                            customer.getCustomerFirstname(),
+                            customer.getCustomerLastname(),
+                            customer.getCustomerLogin(),
+                            selectedProduct.getProductName(),
+                            selectedProduct.getProductType(),
+                            quantityToPurchase,
+                            totalPrice
+                        );
+                        purchaseList.add(newPurchase);
+                        SaveLoadManager.saveCustomerList(customerList, "customerList");
+                        SaveLoadManager.savePurchaseList(purchaseList, "purchaseList");
+                    
+                    }else{       
+                        System.out.println("Not enough money to buy!");
+                    }
                     break;
                 }
             } else {
@@ -89,27 +115,8 @@ public class StoreManager {
             }
         }
     
-        double totalPrice = quantityToPurchase * selectedProduct.getProductPrice();
-        double roundedTotalPrice = Math.round(totalPrice*100.0)/100.0;
-        //customer.setCustomerBalance(customer.getCustomerBalance() - roundedTotalPrice);
-        customer.setCustomerBalance(Math.round((customer.getCustomerBalance() - roundedTotalPrice)*100.0)/100.0);
+
     
-        System.out.println("Purchase successful. Total cost: " + roundedTotalPrice + " EUR");
-        SaveLoadManager.saveCustomerList(customerList, "customerList");
-    
-        selectedProduct.setProductQuantity(selectedProduct.getProductQuantity() - quantityToPurchase);
-    
-        Purchase newPurchase = new Purchase(
-            customer.getCustomerFirstname(),
-            customer.getCustomerLastname(),
-            customer.getCustomerLogin(),
-            selectedProduct.getProductName(),
-            selectedProduct.getProductType(),
-            quantityToPurchase,
-            totalPrice
-        );
-        purchaseList.add(newPurchase);
-        SaveLoadManager.savePurchaseList(purchaseList, "purchaseList");
     
         //displayAllPurchases();
     }
