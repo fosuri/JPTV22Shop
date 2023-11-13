@@ -106,7 +106,9 @@ public class CustomerManager {
         while(depositAmount<=0){
             try {
                 depositAmount = Double.parseDouble(scanner.nextLine());
-                if (depositAmount<=0 || Math.abs(depositAmount*100 - Math.round(depositAmount*100))>0.001){
+                if(depositAmount==0){
+                    break;
+                }else if (depositAmount<=0 || Math.abs(depositAmount*100 - Math.round(depositAmount*100))>0.001){
                     System.out.println("Invalid amount. Amount should be greater than 0 and have 2 decimal places.");
                     System.out.print("Enter a valid deposit amount: ");
                     depositAmount=-1;                    

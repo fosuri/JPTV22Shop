@@ -101,6 +101,7 @@ public class StoreManager {
                         );
                         purchaseList.add(newPurchase);
                         SaveLoadManager.saveCustomerList(customerList, "customerList");
+                        SaveLoadManager.saveProductList(productList, "productList");
                         SaveLoadManager.savePurchaseList(purchaseList, "purchaseList");
                     
                     }else{       
