@@ -11,7 +11,6 @@ public class InputFromKeyboard {
         
         Integer number;
         while (true) {
-            System.out.print(">>>");
             
             if (scanner.hasNextInt()){
                 number = scanner.nextInt();
@@ -26,6 +25,16 @@ public class InputFromKeyboard {
             }
         }
         return number;
+    }
+    public static String inputSympolYesOrNO(){;
+        String sybmol = "n";
+        do{
+            sybmol = scanner.nextLine();
+            if(sybmol.equals("n") || sybmol.equals("y")){
+                return sybmol;
+            }
+            System.out.println("Only \"y\" or \"n\": ");
+        }while(true);
     }
     
 }

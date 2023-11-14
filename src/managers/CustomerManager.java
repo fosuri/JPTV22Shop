@@ -4,6 +4,7 @@ package managers;
 import java.util.List;
 import java.util.Scanner;
 import entity.Customer;
+import tools.InputFromKeyboard;
 
 
 public class CustomerManager {
@@ -127,5 +128,61 @@ public class CustomerManager {
     
     public List<Customer> getCustomerList(){
         return customerList;
+    }
+
+    public void changeCustomerDetails(){
+        System.out.println();
+        System.out.println("---------------------------");
+        System.out.println("| Change customer details |");
+        System.out.println("---------------------------");     
+
+        System.out.print("Enter the customer's login: ");
+        String login = scanner.nextLine();
+        Customer customer = findCustomersByLogin(login);
+        if(customer==null){
+            System.out.println("Customer with the provided login not found.");
+            return;
+        }
+        
+        boolean changeDetails = true;
+        while (changeDetails) {
+            System.out.print("Enter a new first name: ");
+            String newFirstName = scanner.nextLine();
+            System.out.print("Enter a new last name: ");
+            String newLastName = scanner.nextLine();
+            System.out.print("Enter a new login: ");
+            String newLogin = scanner.nextLine();
+
+            System.out.println("Your new first name: "+newFirstName);
+            System.out.println("Your new last name: "+newLastName);
+            System.out.println("Your new login: "+newLogin);
+
+            System.out.println("Change account details? (y/n)");
+            //String change = InputFromKeyboard.inputSympolYesOrNO();
+            String change = scanner.nextLine();
+            
+            if (change.equalsIgnoreCase("y")) {
+                System.out.println("Customer details have been changed!");
+                customer.setCustomerFirstname(newFirstName);
+                customer.setCustomerLastname(newLastName);
+                customer.setCustomerLogin(newLogin);
+                SaveLoadManager.saveCustomerList(customerList, "customerList");
+                changeDetails = false;
+            } else if (change.equalsIgnoreCase("n")){
+                System.out.println("0. Exit");
+                System.out.println("1. Re-enter");
+                System.out.print("Enter task number: ");
+                int choice = InputFromKeyboard.inputNumberFromRange(0, 1);
+                if (choice == 1){
+                    
+                }else if (choice == 0){
+                    changeDetails = false;
+                }else{
+                    System.out.println("Invalid symbol. Only \"y\" or \"n\"");
+                }
+
+            }
+
+        }
     }
 }

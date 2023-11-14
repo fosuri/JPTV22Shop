@@ -50,27 +50,13 @@ public class StoreManager {
         //int productNumber = scanner.nextInt(); scanner.nextLine();
         int productNumber = InputFromKeyboard.inputNumberFromRange(1, productList.size());
     
-        if (productNumber < 1 || productNumber > productList.size()) {
-            System.out.println("Invalid product number.");
-            return;
-        }
+        // if (productNumber < 1 || productNumber > productList.size()) {
+        //     System.out.println("Invalid product number.");
+        //     return;
+        // }
     
         Product selectedProduct = productList.get(productNumber - 1);
     
-        // System.out.print("Enter the quantity you want to purchase: ");
-        //int quantityToPurchase = InputFromKeyboard.inputNumberFromRange(0, selectedProduct.getProductQuantity()); 
-
-        // int quantityToPurchase;
-        // while (true) {
-        //     System.out.print("Enter the quantity to purchase: ");
-        //     quantityToPurchase = scanner.nextInt(); scanner.nextLine(); 
-        
-        //     if (quantityToPurchase <= 0 || quantityToPurchase > selectedProduct.getProductQuantity()) {
-        //         System.out.println("Invalid quantity. Please enter a valid quantity.");
-        //     } else {
-        //         break;
-        //     }
-        // }
         int quantityToPurchase;
         while (true) {
             System.out.print("Enter the quantity to purchase: ");
@@ -86,7 +72,6 @@ public class StoreManager {
                     double totalPrice = quantityToPurchase * selectedProduct.getProductPrice();
                     double roundedTotalPrice = Math.round(totalPrice*100.0)/100.0;
                     if(roundedTotalPrice<=customer.getCustomerBalance()){
-                        //customer.setCustomerBalance(customer.getCustomerBalance() - roundedTotalPrice);
                         customer.setCustomerBalance(Math.round((customer.getCustomerBalance() - roundedTotalPrice)*100.0)/100.0);
                         System.out.println("Purchase successful. Total cost: " + roundedTotalPrice + " EUR");
                         selectedProduct.setProductQuantity(selectedProduct.getProductQuantity() - quantityToPurchase);
@@ -114,10 +99,6 @@ public class StoreManager {
                 scanner.nextLine(); 
             }
         }
-    
-
-    
-    
         //displayAllPurchases();
     }
 

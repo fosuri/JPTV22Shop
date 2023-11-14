@@ -6,6 +6,7 @@ package managers;
 import java.util.List;
 import java.util.Scanner;
 import entity.Product;
+import tools.InputFromKeyboard;
 
 public class ProductManager {
     private List<Product> productList;
@@ -28,41 +29,7 @@ public class ProductManager {
         
         System.out.print("Product type: ");
         final String pType = scanner.nextLine();        
-        // double pPrice;
-        // while (true) {
-        //     System.out.print("Enter the price of the product (should be greater than 0 and have 2 decimal places(#.##)): ");
-        //     String pPriceString = scanner.next();
-        //     try {
-        //         pPrice = Double.parseDouble(pPriceString);
-        //         if(pPrice > 0 && Math.abs(pPrice * 100 - (int)(pPrice * 100)) < 1e-9){
-        //             break;
-        //         } else{
-        //             System.out.println("Price must be greater than 0 and have exactly 2 decimal places.");
-        //         }
-        //     } catch (NumberFormatException e) {
-        //         System.out.println("Invalid price entry format.");
-        //     }
-        // }
 
-        // double pPrice;
-
-        // while (true) {
-        //     System.out.print("Enter the price of the product (should be greater than 0 and have 2 decimal places (#.##)): ");
-        //     String pPriceString = scanner.next();
-
-        //     try {
-        //         pPrice = Double.parseDouble(pPriceString);
-        //         BigDecimal price = BigDecimal.valueOf(pPrice).setScale(2, RoundingMode.HALF_UP);
-
-        //         if (price.compareTo(BigDecimal.ZERO) > 0 && price.scale() == 2) {
-        //             break;
-        //         } else {
-        //             System.out.println("Price must be greater than 0 and have exactly 2 decimal places.");
-        //         }
-        //     } catch (NumberFormatException e) {
-        //         System.out.println("Invalid price entry format.");
-        //     }
-        // }
         System.out.print("Enter the price of the product (should be greater than 0 and have 2 decimal places (#.##)):");
         double pPrice =-1;
         while(pPrice<=0){
@@ -79,32 +46,6 @@ public class ProductManager {
             }
         }
 
-        // System.out.print("Product quantity: ");
-        // int pQuantity = scanner.nextInt(); scanner.nextLine();
-        // while(pQuantity<=0){
-        //     System.out.print("Quantity must be greater than 0. Please enter a valid quantity: ");
-        //     pQuantity = scanner.nextInt(); scanner.nextLine();
-        // }
-
-        // int pQuantity;
-
-        // while (true) {
-        //     try {
-        //         System.out.print("Product quantity: ");
-        //         pQuantity = scanner.nextInt();
-        //         scanner.nextLine();  
-
-        //         if (pQuantity > 0) {
-        //             break; 
-        //         } else {
-        //             System.out.println("Quantity must be greater than 0. Please enter a valid quantity.");
-        //         }
-        //     } catch (java.util.InputMismatchException e) {
-        //         
-        //         System.out.println("Invalid input. Please enter a valid quantity.");
-        //         scanner.nextLine(); 
-        //     }
-        // }
 
         int pQuantity;
         while(true){
@@ -153,12 +94,118 @@ public class ProductManager {
         return productList;
     }
 
-    // public Product findProductByName(String productName){
-    //     for(Product product: productList){
-    //         if(product.getProductName().equals(productName)){
-    //             return product;
-    //         }
-    //     }
-    //     return null;
-    // }
+    public void changeProductPrice(){
+        System.out.println();
+        System.out.println("------------------------");
+        System.out.println("| Change product price |");
+        System.out.println("------------------------");     
+
+        displayAllProducts();
+        System.out.println("Enter the number of the product you want to change.");
+        int productNumber = InputFromKeyboard.inputNumberFromRange(1, productList.size());
+        Product selectedProduct = productList.get(productNumber - 1);
+        
+        boolean changeDetails = true;
+        while (changeDetails) {
+            System.out.print("Enter the new price of the product (should be greater than 0 and have 2 decimal places (#.##)):");
+            double newPPrice =-1;
+            while(newPPrice<=0){
+                try {
+                    newPPrice = Double.parseDouble(scanner.nextLine());
+                    if(newPPrice<=0 || Math.abs(newPPrice*100 - Math.round(newPPrice*100))>0.001){
+                        System.out.println("Invalid price. Amount should be greater than 0 and have 2 decimal places.");
+                        System.out.print("Enter a valid price: ");
+                        newPPrice = -1;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid number.");
+                    System.out.print("Enter a valid price: ");                
+                }
+            }
+
+            System.out.println("New product price: "+newPPrice+" EUR");
+
+            System.out.println("Change product details? (y/n)");
+            //String change = InputFromKeyboard.inputSympolYesOrNO();
+            String change = scanner.nextLine();
+
+            if (change.equalsIgnoreCase("y")) {
+                System.out.println("Product details have been changed!");
+                selectedProduct.setProductPrice(newPPrice);
+                SaveLoadManager.saveProductList(productList, "productList");
+                changeDetails = false;
+            } else if (change.equalsIgnoreCase("n")){
+                System.out.println("0. Exit");
+                System.out.println("1. Re-enter");
+                System.out.print("Enter task number: ");
+                int choice = InputFromKeyboard.inputNumberFromRange(0, 1);
+                if (choice == 1){
+                    
+                }else if (choice == 0){
+                    changeDetails = false;
+                }else{
+                    System.out.println("Invalid symbol. Only \"y\" or \"n\"");
+                }
+
+            }
+
+        }
+    }
+    public void ProductReplenishment(){
+        System.out.println();
+        System.out.println("-------------------------");
+        System.out.println("| Product replenishment |");
+        System.out.println("-------------------------");     
+
+        displayAllProducts();
+        System.out.println("Enter the number of the product you want to change.");
+        int productNumber = InputFromKeyboard.inputNumberFromRange(1, productList.size());
+        Product selectedProduct = productList.get(productNumber - 1);
+        
+        boolean changeDetails = true;
+        while (changeDetails) {
+            int newPQuantity;
+            while(true){
+                System.out.print("Product quantity: ");
+                if(scanner.hasNextInt()){
+                    newPQuantity = scanner.nextInt(); scanner.nextLine();
+                    if(newPQuantity<0){
+                        System.out.println("Quantity must be greater than 0. Please enter a valid quantity.");
+                    } else{
+                        break;
+                    }
+                }else{
+                    System.out.println("Invalid input. Please enter a valid quantity.");
+                    scanner.nextLine(); 
+                }
+            }
+
+            System.out.println("New product price: "+newPQuantity+" EUR");
+
+            System.out.println("Confirm product replenishment? (y/n)");
+            //String change = InputFromKeyboard.inputSympolYesOrNO();
+            String change = scanner.nextLine();
+
+            if (change.equalsIgnoreCase("y")) {
+                System.out.println("Product quantity have been changed!");
+                selectedProduct.setProductQuantity(selectedProduct.getProductQuantity()+newPQuantity);
+                SaveLoadManager.saveProductList(productList, "productList");
+                changeDetails = false;
+            } else if (change.equalsIgnoreCase("n")){
+                System.out.println("0. Exit");
+                System.out.println("1. Re-enter");
+                System.out.print("Enter task number: ");
+                int choice = InputFromKeyboard.inputNumberFromRange(0, 1);
+                if (choice == 1){
+                    
+                }else if (choice == 0){
+                    changeDetails = false;
+                }else{
+                    System.out.println("Invalid symbol. Only \"y\" or \"n\"");
+                }
+
+            }
+
+        }
+    }
 }

@@ -25,9 +25,29 @@ public class App {
             System.out.println("--------------");
             System.out.println("| Store menu |");
             System.out.println("--------------");
-            System.out.println("0. Exit\n1. Add a new customer\n2. Add a new product\n3. Display all customers\n4. Display all products");
-            System.out.println("5. Purchase\n6. Purchased Products\n7. Total Sales\n8. Replenishment of balance"); 
-            int task = InputFromKeyboard.inputNumberFromRange(0, 8);
+            System.out.println("0. Exit");
+            System.out.println("1. Add a new customer");
+            System.out.println("2. Display all customers");
+            System.out.println("3. Replenishment of balance");
+            System.out.println("4. Change customer details");
+            System.out.println("---------------------------");
+            System.out.println("5. Add a new product");
+            System.out.println("6. Display all products");
+            System.out.println("7. Change product price");
+            System.out.println("8. Product replenishment");
+            System.out.println("---------------------------");
+            System.out.println("9. Purchase");
+            System.out.println("10. Purchased Products");
+            System.out.println("11. Total sales");
+
+            System.out.print("Enter task number: ");
+            int task = InputFromKeyboard.inputNumberFromRange(0, 11);
+            System.out.println("Selected task is "+task+". Are you sure? Y/N");
+            String continueRun = InputFromKeyboard.inputSympolYesOrNO();
+            if(continueRun.equalsIgnoreCase("n")){
+                continue;
+            }
+            
             switch (task) {
                 case 0:
                     System.out.println("You left the store.");
@@ -37,25 +57,34 @@ public class App {
                     customerManager.addCustomer();
                     break;
                 case 2:
-                    productManager.addProduct();
-                    break;
-                case 3:
                     customerManager.displayAllCustomers();
                     break;
+                case 3:
+                    customerManager.replenishmentOfBalance();
+                    break;
                 case 4:
-                    productManager.displayAllProducts();
+                    customerManager.changeCustomerDetails();
                     break;
                 case 5:
-                	storeManager.purchaseProduct();
+                	productManager.addProduct();
                     break;
                 case 6:
-                    storeManager.displayPurchasesByLogin();
+                    productManager.displayAllProducts();
                     break;
                 case 7:
-                    storeManager.displayTotalPurchaseAmount();
+                    productManager.changeProductPrice();
                     break;
                 case 8:
-                    customerManager.replenishmentOfBalance();
+                    productManager.ProductReplenishment();
+                    break;
+                case 9:
+                    storeManager.purchaseProduct();
+                    break;
+                case 10:
+                    storeManager.displayPurchasesByLogin();
+                    break;
+                case 11:
+                    storeManager.displayTotalPurchaseAmount();
                     break;
                 default:
                     break;
