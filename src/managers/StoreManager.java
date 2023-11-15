@@ -84,7 +84,7 @@ public class StoreManager {
                             selectedProduct.getProductName(),
                             selectedProduct.getProductType(),
                             quantityToPurchase,
-                            totalPrice
+                            roundedTotalPrice
                         );
                         purchaseList.add(newPurchase);
                         SaveLoadManager.saveCustomerList(customerList, "customerList");

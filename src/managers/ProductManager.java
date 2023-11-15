@@ -181,7 +181,7 @@ public class ProductManager {
                 }
             }
 
-            System.out.println("New product price: "+newPQuantity+" EUR");
+            System.out.println("Quantity to add: "+newPQuantity);
 
             System.out.println("Confirm product replenishment? (y/n)");
             //String change = InputFromKeyboard.inputSympolYesOrNO();

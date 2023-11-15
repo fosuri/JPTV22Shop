@@ -44,11 +44,11 @@ public class App {
 
             System.out.print("Enter task number: ");
             int task = InputFromKeyboard.inputNumberFromRange(0, 13);
-            System.out.println("Selected task is "+task+". Are you sure? Y/N");
-            String continueRun = InputFromKeyboard.inputSympolYesOrNO();
-            if(continueRun.equalsIgnoreCase("n")){
-                continue;
-            }
+            // System.out.println("Selected task is "+task+". Are you sure? Y/N");
+            // String continueRun = InputFromKeyboard.inputSympolYesOrNO();
+            // if(continueRun.equalsIgnoreCase("n")){
+            //     continue;
+            // }
             
             switch (task) {
                 case 0:
