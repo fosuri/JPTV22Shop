@@ -1,5 +1,6 @@
 package managers;
 
+import java.util.Comparator;
 // import java.math.BigDecimal;
 // import java.math.RoundingMode;
 // import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class ProductManager {
             }
         }
 
-        Product newProduct = new Product(pName, pType, pPrice, pQuantity);
+        Product newProduct = new Product(pName, pType, pPrice, pQuantity,0);
         productList.add(newProduct);
         System.out.println("The product was successfully added!");
         SaveLoadManager.saveProductList(productList, "productList");
@@ -207,5 +208,16 @@ public class ProductManager {
             }
 
         }
+    }
+
+    public void productSalesRating(){
+        System.out.println();
+        System.out.println("------------------------");
+        System.out.println("| Product sales rating |");
+        System.out.println("------------------------");
+        List<Product> sortedList = productList.stream()
+                    .sorted(Comparator.comparingInt(Product::getProductRating).reversed())
+                    .toList();
+        sortedList.forEach(product -> System.out.println(product.getProductName()+" "+ product.getProductType()+" "+ product.getProductPrice()+" EUR: "+product.getProductRating()));
     }
 }

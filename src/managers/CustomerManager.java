@@ -1,5 +1,6 @@
 package managers;
 
+import java.util.Comparator;
 // import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -44,7 +45,7 @@ public class CustomerManager {
         
         final double balance = 0.00;
 
-        Customer newCustomer = new Customer(fname, lname, login, balance);
+        Customer newCustomer = new Customer(fname, lname, login, balance, 0);
         customerList.add(newCustomer);
         System.out.println("The customer was successfully added!");
         SaveLoadManager.saveCustomerList(customerList, "customerList");
@@ -78,7 +79,8 @@ public class CustomerManager {
                 System.out.print(customer.getCustomerFirstname()+" ");
                 System.out.print(customer.getCustomerLastname()+", ");
                 System.out.print("(" + customer.getCustomerLogin()+"), ");
-                System.out.print(customer.getCustomerBalance()+" EUR.");
+                System.out.print(customer.getCustomerBalance()+" EUR, ");
+                System.out.print(customer.getCustomerNumberOfPurchases()+".");
                 System.out.println();
                 customerNumber++;                
             }
@@ -184,5 +186,16 @@ public class CustomerManager {
             }
 
         }
+    }
+
+    public void customerRatingByNumberOfPurchases(){
+        System.out.println();
+        System.out.println("------------------------------------------");
+        System.out.println("| Customer rating by number of purchases |");
+        System.out.println("------------------------------------------");
+        List<Customer> sortedList = customerList.stream()
+                    .sorted(Comparator.comparingInt(Customer::getCustomerNumberOfPurchases).reversed())
+                    .toList();
+        sortedList.forEach(customer -> System.out.println(customer.getCustomerFirstname() +" "+ customer.getCustomerLastname()+" (" + customer.getCustomerLogin()+") : " + customer.getCustomerNumberOfPurchases()));
     }
 }

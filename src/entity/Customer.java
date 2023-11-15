@@ -7,11 +7,14 @@ public class Customer implements Serializable {
     private String customerLastname;
     private String customerLogin;
     private double customerBalance;
-    public Customer(String customerFirstname, String customerLastname, String customerLogin, double customerBalance) {
+    private int customerNumberOfPurchases;
+    public Customer(String customerFirstname, String customerLastname, String customerLogin, double customerBalance,
+            int customerNumberOfPurchases) {
         this.customerFirstname = customerFirstname;
         this.customerLastname = customerLastname;
         this.customerLogin = customerLogin;
         this.customerBalance = customerBalance;
+        this.customerNumberOfPurchases = customerNumberOfPurchases;
     }
     public String getCustomerFirstname() {
         return customerFirstname;
@@ -37,6 +40,12 @@ public class Customer implements Serializable {
     public void setCustomerBalance(double customerBalance) {
         this.customerBalance = customerBalance;
     }
+    public int getCustomerNumberOfPurchases() {
+        return customerNumberOfPurchases;
+    }
+    public void setCustomerNumberOfPurchases(int customerNumberOfPurchases) {
+        this.customerNumberOfPurchases = customerNumberOfPurchases;
+    }
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -47,6 +56,7 @@ public class Customer implements Serializable {
         long temp;
         temp = Double.doubleToLongBits(customerBalance);
         result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + customerNumberOfPurchases;
         return result;
     }
     @Override
@@ -75,12 +85,15 @@ public class Customer implements Serializable {
             return false;
         if (Double.doubleToLongBits(customerBalance) != Double.doubleToLongBits(other.customerBalance))
             return false;
+        if (customerNumberOfPurchases != other.customerNumberOfPurchases)
+            return false;
         return true;
     }
     @Override
     public String toString() {
         return "Customer [customerFirstname=" + customerFirstname + ", customerLastname=" + customerLastname
-                + ", customerLogin=" + customerLogin + ", customerBalance=" + customerBalance + "]";
+                + ", customerLogin=" + customerLogin + ", customerBalance=" + customerBalance
+                + ", customerNumberOfPurchases=" + customerNumberOfPurchases + "]";
     }
 
 }

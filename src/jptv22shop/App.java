@@ -39,9 +39,11 @@ public class App {
             System.out.println("9. Purchase");
             System.out.println("10. Purchased Products");
             System.out.println("11. Total sales");
+            System.out.println("12. Customer rating by number of purchases");
+            System.out.println("13. Product sales rating");
 
             System.out.print("Enter task number: ");
-            int task = InputFromKeyboard.inputNumberFromRange(0, 11);
+            int task = InputFromKeyboard.inputNumberFromRange(0, 13);
             System.out.println("Selected task is "+task+". Are you sure? Y/N");
             String continueRun = InputFromKeyboard.inputSympolYesOrNO();
             if(continueRun.equalsIgnoreCase("n")){
@@ -85,6 +87,12 @@ public class App {
                     break;
                 case 11:
                     storeManager.displayTotalPurchaseAmount();
+                    break;
+                case 12:
+                    customerManager.customerRatingByNumberOfPurchases();
+                    break;
+                case 13:
+                    productManager.productSalesRating();
                     break;
                 default:
                     break;

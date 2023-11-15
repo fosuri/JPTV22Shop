@@ -75,6 +75,8 @@ public class StoreManager {
                         customer.setCustomerBalance(Math.round((customer.getCustomerBalance() - roundedTotalPrice)*100.0)/100.0);
                         System.out.println("Purchase successful. Total cost: " + roundedTotalPrice + " EUR");
                         selectedProduct.setProductQuantity(selectedProduct.getProductQuantity() - quantityToPurchase);
+                        customer.setCustomerNumberOfPurchases(customer.getCustomerNumberOfPurchases()+1);
+                        selectedProduct.setProductRating(selectedProduct.getProductRating()+quantityToPurchase);
                         Purchase newPurchase = new Purchase(
                             customer.getCustomerFirstname(),
                             customer.getCustomerLastname(),

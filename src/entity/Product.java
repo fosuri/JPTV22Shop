@@ -7,11 +7,14 @@ public class Product implements Serializable {
     private String productType;
     private double productPrice;
     private int productQuantity;
-    public Product(String productName, String productType, double productPrice, int productQuantity) {
+    private int productRating;
+    public Product(String productName, String productType, double productPrice, int productQuantity,
+            int productRating) {
         this.productName = productName;
         this.productType = productType;
         this.productPrice = productPrice;
         this.productQuantity = productQuantity;
+        this.productRating = productRating;
     }
     public String getProductName() {
         return productName;
@@ -37,6 +40,12 @@ public class Product implements Serializable {
     public void setProductQuantity(int productQuantity) {
         this.productQuantity = productQuantity;
     }
+    public int getProductRating() {
+        return productRating;
+    }
+    public void setProductRating(int productRating) {
+        this.productRating = productRating;
+    }
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -47,6 +56,7 @@ public class Product implements Serializable {
         temp = Double.doubleToLongBits(productPrice);
         result = prime * result + (int) (temp ^ (temp >>> 32));
         result = prime * result + productQuantity;
+        result = prime * result + productRating;
         return result;
     }
     @Override
@@ -72,11 +82,14 @@ public class Product implements Serializable {
             return false;
         if (productQuantity != other.productQuantity)
             return false;
+        if (productRating != other.productRating)
+            return false;
         return true;
     }
     @Override
     public String toString() {
         return "Product [productName=" + productName + ", productType=" + productType + ", productPrice=" + productPrice
-                + ", productQuantity=" + productQuantity + "]";
+                + ", productQuantity=" + productQuantity + ", productRating=" + productRating + "]";
     }
+
 }
